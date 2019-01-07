@@ -12,7 +12,20 @@ class InfoController
     {
         if (file_exists($data)) {
             $datos = simplexml_load_file($data);
-            echo json_encode($datos);
+            $cantidad = count($datos);
+            
+            for ($i=0; $i < $cantidad ; $i++) { 
+                $tot = $i+1;
+                echo "Elemento numero {$tot}\n<br>";
+                echo json_encode($datos->cancion[$i]) . "<br>\n";
+                echo "<ul>";
+                    echo "<li>".$datos->cancion[$i]->titulo. "</li>\n";
+                    echo "<li>".$datos->cancion[$i]->artista. "</li>\n";
+                    echo "<li>".$datos->cancion[$i]->genero. "</li>\n";
+                echo "</ul>";
+                
+                echo "<hr>";
+            }
         } else {
             echo "no se encuentra archivo";
         }
