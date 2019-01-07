@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form id='xmlLoad'>
+        <p>
+            <input type="file" name='load' id="loadXml">
+        </p>
+        <button type="button" id="btn-load">Cargar</button>
+    </form>
+    <span id = 'responseText'></span>
+    <script>
+        let btn_save = document.querySelector("#btn-load");
+        btn_save.addEventListener("click", function () {
+            let url = "app/Controller/infoController.php";
+            let form = document.querySelector("#xmlLoad");
+            let file = document.querySelector("#loadXml");
+            let formData = new FormData(form);
+            formData.append("save", true);
+            formData.append("file", file.files[0]);
+            let request = new XMLHttpRequest();
+            request.open('POST', url, true);
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.querySelector("#responseText").innerHTML = this.responseText;
+                    console.log(this.responseText);
+                    
+                    //  form.reset();
+                }
+            }
+            request.send(formData);
+        });
+    </script>
+</body>
+
+</html>
